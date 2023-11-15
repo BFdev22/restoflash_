@@ -1,0 +1,23 @@
+{
+  "name": "restoflash_",
+  "version": "1.0.0",
+  "description": "gestion restauration",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BFdev22/restoflash_.git"
+  },
+  "author": "Brema Florian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BFdev22/restoflash_/issues"
+  },
+  "homepage": "https://github.com/BFdev22/restoflash_#readme",
+  "devDependencies": {
+    "electron": "^27.0.4"
+  }
+}
