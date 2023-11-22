@@ -19,5 +19,8 @@
   "homepage": "https://github.com/BFdev22/restoflash_#readme",
   "devDependencies": {
     "electron": "^27.0.4"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.2"
   }
 }
