@@ -8,10 +8,10 @@ dotenv.config();
 const SECRET_KEY = process.env.ACCESS_TOKEN_SECRET;
 
 async function authentification(req, res) {
-  const { email, password } = req.query;
-
   try {
+    const { email, password } = req.query;
     const user = await UserModel.findOne({ email: email });
+    console.log(user)
 
     if (user) {
       bcrypt.compare(password, user.password, function (err, response) {

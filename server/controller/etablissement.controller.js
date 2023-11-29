@@ -1,6 +1,6 @@
-const Etablissement = require("../model/etablissement.model.js");
-const Registre = require("../model/registre.model.js");
-const User = require("../model/user.model.js");
+import Etablissement from "../model/etablissement.model.js";
+import Registre from "../model/registre.model.js";
+import User from "../model/user.model.js";
 
 async function getAllEtablissement(req, res) {
   try {

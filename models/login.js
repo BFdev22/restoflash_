@@ -1,20 +1,27 @@
 const axios = require('axios');
+const dotenv = require('dotenv');
 
-const loginForm = document.getElementById('submitLogin');
+dotenv.config();
+const host = process.env.HOST;
 
-loginForm.addEventListener("submit", async (event) => {
+const login = document.getElementById('submitLogin');
+
+login.addEventListener("click", function (event) {
     event.preventDefault();
     const username = document.getElementById('inputEmail').value;
     const password = document.getElementById('inputPassword').value;
 
-    await axios.post('/login', {
-        email: username,
-        password: password
+    fetch(`${host}/connexion`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: username,
+            password: password
+        })
     })
-    .then(function (response) {
-        console.log(response);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Erreur lors de la requête :', error));
 });

@@ -1,5 +1,5 @@
-const DataTypes = require("sequelize");
-const connectDB = require("../database/database.js");
+import { DataTypes } from "sequelize";
+import connectDB from "../database/database.js";
 
 const User = connectDB.define("users", {
   id: {

@@ -1,14 +1,14 @@
-const Etablissement = require("../model/etablissement.model.js");
-const Registre = require("../model/registre.model.js");
-const User = require("../model/user.model.js");
-const bcrypt = require("bcrypt");
+import Etablissement from "../model/etablissement.model.js";
+import Registre from "../model/registre.model.js";
+import User from "../model/user.model.js";
+import bcrypt from "bcrypt";
 
 User.hasMany(Registre);
 Etablissement.hasMany(User);
 User.belongsTo(Etablissement);
 Registre.belongsTo(User);
 
-async function getAllUser(req, res) {
+export async function getAllUser(req, res) {
   try {
     const users = await User.findAll({
       attributes: ["id", "nom", "prenom", "email", "password", "role"],
@@ -25,7 +25,7 @@ async function getAllUser(req, res) {
     console.log("getAllUser: ", error);
   }
 }
-async function getOneUser(req, res) {
+export async function getOneUser(req, res) {
   try {
     const user = await User.findOne({
       attributes: ["id", "nom", "prenom", "email", "password", "role"],
@@ -48,17 +48,17 @@ async function getOneUser(req, res) {
     console.log("getOneUser: ", error);
   }
 }
-async function createUser(req, res) {
+export async function createUser(req, res) {
   try {
     const saltRounds = 10;
-    /*  */
-    /* if (!req.query.name && !req.query.email && !req.query.password) {
-      return res
-        .status(400)
-        .json({ message: "Merci de renseigner l'ensemble des informations" });
-    } */
 
-    const addUser = User.create({
+    // if (!req.query.name && !req.query.email && !req.query.password) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Merci de renseigner l'ensemble des informations" });
+    // }
+
+    const addUser = await User.create({
       nom: req.query.nom,
       prenom: req.query.prenom,
       email: req.query.email,
@@ -72,7 +72,7 @@ async function createUser(req, res) {
     console.log("createUser: ", error);
   }
 }
-async function editUser(req, res) {
+export async function editUser(req, res) {
   try {
     const saltRounds = 10;
     /*  */
@@ -99,7 +99,7 @@ async function editUser(req, res) {
     console.log("editUser: ", error);
   }
 }
-async function deleteUser(req, res) {
+export async function deleteUser(req, res) {
   try {
     const deleteUser = await User.destroy({ where: { id: req.params.userId } });
 
