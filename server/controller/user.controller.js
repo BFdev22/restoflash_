@@ -115,4 +115,4 @@ async function deleteUser(req, res) {
   }
 }
 
-export { getAllUser, getOneUser, createUser, editUser, deleteUser };
+export default { getAllUser, getOneUser, createUser, editUser, deleteUser };

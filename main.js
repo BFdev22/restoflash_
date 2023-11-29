@@ -1,4 +1,12 @@
 const path = require('node:path');
+const express = require("express");
+const cors = require('cors');
+const dotenv = require('dotenv');
+const url = require('url');
+
+dotenv.config();
+
+const port = process.env.PORT;
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 
@@ -14,6 +22,7 @@ const createWindow = () => {
     });
 
     win.loadFile('./views/home.html');
+    win.loadURL('http://localhost:3000');
 };
 
 app.whenReady().then(() => {

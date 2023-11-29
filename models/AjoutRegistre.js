@@ -1,4 +1,7 @@
+// const Registre = require('../server/controller/registre.controller');
 // import createRegistre from "../server/controller/registre.controller";
+
+// const host = process.env.H;
 
 document.getElementById('submitRegistre').addEventListener('click', function(){
 
@@ -10,19 +13,19 @@ document.getElementById('submitRegistre').addEventListener('click', function(){
         date: date
     }
 
-    // createRegistre(dataRegistre);
+    // Registre.createRegistre(dataRegistre);
     
-    fetch('/registres', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dataRegistre)
-    })
-    .then(response => {
-        console.log(response);
-    })
-    .catch(error => {
-        console.log(error);
-    })
+    // fetch('/registres', {
+    //     method: 'POST',
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify(dataRegistre)
+    // })
+    // .then(response => {
+    //     console.log(response);
+    // })
+    // .catch(error => {
+    //     console.log(error);
+    // })
 });
