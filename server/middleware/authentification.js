@@ -7,12 +7,20 @@ dotenv.config();
 /*  */
 const SECRET_KEY = process.env.ACCESS_TOKEN_SECRET;
 
+async function hashPassword(password) {
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    return hashedPassword;
+  } catch (error) {
+    console.error('Erreur lors du hachage du mot de passe :', error);
+  }
+}
+
 async function authentification(req, res) {
   try {
-    const { email, password } = req.query;
-    const user = await UserModel.findOne({ email: email });
-    console.log(user)
-
+    const email = req.body.email; 
+    const password = await hashPassword(req.body.password);
+    const user = await UserModel.findOne({ where: { email } });
     if (user) {
       bcrypt.compare(password, user.password, function (err, response) {
         if (err) {
