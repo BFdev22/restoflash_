@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
-import { Sequelize } from "sequelize";
+const Sequelize = require("sequelize");
 
 const connectDB = new Sequelize(
   /* "restoflash",

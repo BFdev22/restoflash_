@@ -1,7 +1,7 @@
-import Etablissement from "../model/etablissement.model.js";
-import Registre from "../model/registre.model.js";
-import User from "../model/user.model.js";
-import bcrypt from "bcrypt";
+const Etablissement = require("../model/etablissement.model.js");
+const Registre = require("../model/registre.model.js");
+const User = require("../model/user.model.js");
+const bcrypt = require("bcrypt");
 
 User.hasMany(Registre);
 Etablissement.hasMany(User);

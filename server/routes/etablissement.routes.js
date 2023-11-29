@@ -1,24 +1,18 @@
-import express from "express";
-import {
-  getAllEtablissement,
-  getOneEtablissement,
-  createEtablissement,
-  editEtablissement,
-  deleteEtablissement,
-} from "../controller/etablissement.controller.js";
+const express = require("express");
+const Etablissement = require('../controller/etablissement.controller.js');
 
 const etablissementRoutes = express.Router();
 
-etablissementRoutes.get("/etablissements", getAllEtablissement);
+etablissementRoutes.get("/etablissements", Etablissement.getAllEtablissement);
 etablissementRoutes.get(
   "/etablissements/:etablissementId",
-  getOneEtablissement
+  Etablissement.getOneEtablissement
 );
-etablissementRoutes.post("/etablissements", createEtablissement);
-etablissementRoutes.put("/etablissements/:etablissementId", editEtablissement);
+etablissementRoutes.post("/etablissements", Etablissement.createEtablissement);
+etablissementRoutes.put("/etablissements/:etablissementId", Etablissement.editEtablissement);
 etablissementRoutes.delete(
   "/etablissements/:etablissementId",
-  deleteEtablissement
+  Etablissement.deleteEtablissement
 );
 
 export default etablissementRoutes;
