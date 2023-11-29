@@ -7,13 +7,14 @@ import {
   editRegistre,
   deleteRegistre,
 } from "../controller/registre.controller.js";
+import { verifyToken } from "../middleware/authentification.js";
 
 const registreRoutes = express.Router();
 /*  */
-registreRoutes.get("/registres", getAllRegistre);
-registreRoutes.get("/registres/:registreId", getOneRegistre);
-registreRoutes.post("/registres", createRegistre);
-registreRoutes.put("/registres/:registreId", editRegistre);
-registreRoutes.delete("/registres/:registreId", deleteRegistre);
+registreRoutes.get("/registres", verifyToken, getAllRegistre);
+registreRoutes.get("/registres/:registreId", verifyToken, getOneRegistre);
+registreRoutes.post("/registres", verifyToken, createRegistre);
+registreRoutes.put("/registres/:registreId", verifyToken, editRegistre);
+registreRoutes.delete("/registres/:registreId", verifyToken, deleteRegistre);
 
 export default registreRoutes;
