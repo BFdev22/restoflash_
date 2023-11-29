@@ -1,18 +1,31 @@
-const express = require("express");
-const Etablissement = require('../controller/etablissement.controller.js');
+import express from "express";
+import {
+  getAllEtablissement,
+  getOneEtablissement,
+  createEtablissement,
+  editEtablissement,
+  deleteEtablissement,
+} from "../controller/etablissement.controller.js";
+import { verifyToken } from "../middleware/authentification.js";
 
 const etablissementRoutes = express.Router();
 
-etablissementRoutes.get("/etablissements", Etablissement.getAllEtablissement);
+etablissementRoutes.get("/etablissements", verifyToken, getAllEtablissement);
 etablissementRoutes.get(
   "/etablissements/:etablissementId",
-  Etablissement.getOneEtablissement
+  verifyToken,
+  getOneEtablissement
 );
-etablissementRoutes.post("/etablissements", Etablissement.createEtablissement);
-etablissementRoutes.put("/etablissements/:etablissementId", Etablissement.editEtablissement);
+etablissementRoutes.post("/etablissements", verifyToken, createEtablissement);
+etablissementRoutes.put(
+  "/etablissements/:etablissementId",
+  verifyToken,
+  editEtablissement
+);
 etablissementRoutes.delete(
   "/etablissements/:etablissementId",
-  Etablissement.deleteEtablissement
+  verifyToken,
+  deleteEtablissement
 );
 
 export default etablissementRoutes;

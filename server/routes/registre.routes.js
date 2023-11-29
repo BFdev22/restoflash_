@@ -1,12 +1,20 @@
-const express = require("express");
-const Registre = require('../controller/registre.controller.js');
+import express from "express";
+
+import {
+  getAllRegistre,
+  getOneRegistre,
+  createRegistre,
+  editRegistre,
+  deleteRegistre,
+} from "../controller/registre.controller.js";
+import { verifyToken } from "../middleware/authentification.js";
 
 const registreRoutes = express.Router();
 /*  */
-registreRoutes.get("/registres", Registre.getAllRegistre);
-registreRoutes.get("/registres/:registreId", Registre.getOneRegistre);
-registreRoutes.post("/registres", Registre.createRegistre);
-registreRoutes.put("/registres/:registreId", Registre.editRegistre);
-registreRoutes.delete("/registres/:registreId", Registre.deleteRegistre);
+registreRoutes.get("/registres", verifyToken, getAllRegistre);
+registreRoutes.get("/registres/:registreId", verifyToken, getOneRegistre);
+registreRoutes.post("/registres", verifyToken, createRegistre);
+registreRoutes.put("/registres/:registreId", verifyToken, editRegistre);
+registreRoutes.delete("/registres/:registreId", verifyToken, deleteRegistre);
 
 export default registreRoutes;
