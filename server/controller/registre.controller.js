@@ -64,9 +64,9 @@ async function getOneRegistre(req, res) {
 async function createRegistre(req, res) {
   try {
     const registre = await Registre.create({
-      quantite: req.query.quantite,
-      date: req.query.date,
-      userId: req.query.userId,
+      quantite: req.body.quantite,
+      date: req.body.date,
+      userId: req.body.userId,
     });
 
     return res.status(200).json({ message: "Registre ajouté avec succès" });
@@ -78,9 +78,9 @@ async function editRegistre(req, res) {
   try {
     const registre = await Registre.update(
       {
-        quantite: req.query.quantite,
-        date: req.query.date,
-        userId: req.query.userId,
+        quantite: req.body.quantite,
+        date: req.body.date,
+        userId: req.body.userId,
       },
       { where: { id: req.params.registreId } }
     );

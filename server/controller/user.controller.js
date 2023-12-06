@@ -57,15 +57,15 @@ export async function createUser(req, res) {
     //     .status(400)
     //     .json({ message: "Merci de renseigner l'ensemble des informations" });
     // }
-
     const addUser = await User.create({
-      nom: req.query.nom,
-      prenom: req.query.prenom,
-      email: req.query.email,
-      password: bcrypt.hashSync(req.query.password, saltRounds),
-      role: req.query.role,
-      etablissementId: req.query.etablissementId,
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+      email: req.body.email,
+      password: await bcrypt.hash(req.body.password, saltRounds),
+      role: req.body.role,
+      etablissementId: req.body.etablissementId,
     });
+    console.log(addUser);
 
     return res.status(200).json({ message: "Utilisateur ajouté avec succès" });
   } catch (error) {

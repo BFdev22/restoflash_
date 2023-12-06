@@ -17,39 +17,43 @@ async function hashPassword(password) {
 }
 
 async function authentification(req, res) {
+  const email = req.body.email;
+  const password = req.body.password;
+
   try {
-    const email = req.body.email; 
-    const password = await hashPassword(req.body.password);
     const user = await UserModel.findOne({ where: { email } });
     if (user) {
-      bcrypt.compare(password, user.password, function (err, response) {
-        if (err) {
-          throw new Error(err);
-        }
-        if (response) {
-          //delete user._doc.password;
+      const hashPass = await hashPassword(password);
+      
+      const response = await bcrypt.compare(password, user.password);
+      if (response) {
+        //delete user._doc.password;
 
-          const token = jwt.sign(
-            {
-              user: user,
-            },
-            SECRET_KEY,
-            {
-              expiresIn: process.env.JWT_EXPIRE,
-            }
-          );
+        const token = jwt.sign(
+          {
+            user: user,
+          },
+          SECRET_KEY,
+          {
+            expiresIn: process.env.JWT_EXPIRE,
+          }
+        );
 
-          res.header("Authorization", "Bearer " + token);
+        res.header("Authorization", "Bearer " + token);
 
-          return res
-            .status(200)
-            .json({ token: token, message: "Vous êtes bien connecté" });
-        }
-
+        return res
+          .status(200)
+          .json({ 
+            token: token, 
+            message: "Vous êtes bien connecté",
+            userid: user.id, 
+            username: user.nom + " " + user.prenom
+          });
+      } else {
         return res
           .status(403)
           .json({ message: "Email ou mot de passe incorrect" });
-      });
+      }
     } else {
       return res
         .status(404)
@@ -62,6 +66,7 @@ async function authentification(req, res) {
       .json({ message: "Une erreur est survenue lors de l'authentification" });
   }
 }
+
 
 async function verifyToken(req, res, next) {
   if (!req.headers.authorization) {
