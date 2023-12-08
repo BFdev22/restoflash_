@@ -59,12 +59,12 @@ async function createUser(req, res) {
     } */
 
     const addUser = User.create({
-      nom: req.query.nom,
-      prenom: req.query.prenom,
-      email: req.query.email,
-      password: bcrypt.hashSync(req.query.password, saltRounds),
-      role: req.query.role,
-      etablissementId: req.query.etablissementId,
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+      email: req.body.email,
+      password: await bcrypt.hash(req.body.password, saltRounds),
+      role: req.body.role,
+      etablissementId: req.body.etablissementId,
     });
 
     return res.status(200).json({ message: "Utilisateur ajouté avec succès" });
@@ -81,7 +81,7 @@ async function editUser(req, res) {
         nom: req.query.nom,
         prenom: req.query.prenom,
         email: req.query.email,
-        password: bcrypt.hashSync(req.query.password, saltRounds),
+        password: await bcrypt.hash(req.query.password, saltRounds),
         role: req.query.role,
         etablissementId: req.query.etablissementId,
       },
