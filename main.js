@@ -11,7 +11,7 @@ const createWindow = () => {
         }
     });
 
-    win.loadFile('./views/login.html');
+    win.loadFile('index.html');
 };
 
 app.whenReady().then(() => {

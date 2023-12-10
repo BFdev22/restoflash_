@@ -1,15 +1,17 @@
 const dotenv = require('dotenv');
 dotenv.config();
+const jwt = require('jsonwebtoken');
 
 const host = process.env.HOST;
 const username = localStorage.getItem('username');
 
 const connectedUser = document.getElementById('connectedUser');
 connectedUser.innerHTML = username;
+const monToken = localStorage.getItem('monToken');
 
 document.getElementById('submitRegistre').addEventListener('click', function(){
         
-    const monToken = localStorage.getItem('monToken');
+    
     const userid = localStorage.getItem('userid');
 
     const qte = document.getElementById('qte').value;
@@ -49,3 +51,46 @@ document.getElementById('submitRegistre').addEventListener('click', function(){
         }
     });
 });
+
+document.getElementById('logout').addEventListener('click', function(){
+    // Supprimer le token du localStorage
+    localStorage.removeItem('monToken');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userid');
+    localStorage.removeItem('user');
+
+    window.location.assign('../index.html')// Rediriger vers la page de connexion
+
+    console.log('Vous êtes déconnecté.');
+});
+
+function estTokenExpire(token) {
+
+    if (token) {
+        try {
+            // Déchiffrer le token pour obtenir ses informations
+            const decodedToken = jwt.decode(token);
+
+            // Comparer la date d'expiration avec la date actuelle
+            const maintenant = Math.floor(Date.now() / 1000); // Temps actuel en secondes
+            return decodedToken.exp < maintenant;
+        } catch (erreur) {
+            // En cas d'erreur lors du décodage, considérez le token comme expiré
+            return true;
+        }
+    }
+
+    // Si le token n'est pas présent, le considérer comme expiré
+    return true;
+}
+
+if (estTokenExpire(monToken)) {
+    localStorage.removeItem('monToken');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userid');
+    localStorage.removeItem('user');
+
+    window.location.assign('../index.html');
+} else {
+    console.log('Le token est valide.');
+}

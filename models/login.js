@@ -27,7 +27,7 @@ login.addEventListener("click", function (event) {
             localStorage.setItem('monToken', data.token)
             localStorage.setItem('userid', data.userid)
             localStorage.setItem('username', data.username)
-            window.location.assign('../views/home.html');
+            window.location.assign('./views/home.html');
         })
         .catch(error => console.error('Erreur lors de la requête :', error));
         // Stocker le token dans le localStorage
