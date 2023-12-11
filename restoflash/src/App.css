@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#side-bar {
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  width: 350px;
+  padding-left: 10px;
+  position: sticky;
+  top: 0;
+}
+#logo-dashboard img {
+  width: 200px;
+  object-fit: contain;
+}
+ul {
+  list-style: none;
+}
+#navlink li {
+  display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+#navlink li p a {
+  text-decoration: none;
+  font-weight: 600;
+  color: black;
+}
+#navlink li span {
+  color: #024395;
+  margin-top: 5px;
+}
+#content {
+  width: 100%;
+}
+#fixed-bars {
+  display: flex;
+}
+#menu-side {
+  margin-top: 30px;
+}
+
+#logout {
+  height: 500px;
+  display: flex;
+  align-items: end;
+}
+#btn-logout {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+#btn-logout span {
+  color: red;
+}
+#right-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#log-info {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+}
+#name-email {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+#content {
+  background-color: rgb(224, 224, 224);
+  width: 100%;
+  height: 100%;
+  
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
-}
+td {
+  border: 1px solid black;
+  padding: 10px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+}
+tbody>#liste{
+    height: 600px;
+    overflow: auto;
 }
