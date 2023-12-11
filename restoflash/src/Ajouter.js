@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form } from "semantic-ui-react";
 import { useState } from 'react';
+import axios from "axios";
 
 export default  function Ajouter (){
     const [Nom, setNom] = useState('');
@@ -10,14 +11,20 @@ export default  function Ajouter (){
     const [Etablissement, setEtablissment] = useState('');
     const [Role, setRole] = useState('');
 
-    const consoleData = () =>{
+    // const consoleData = () =>{
+        
+    // }
+
+    const postData = () =>{
         console.log(Nom)
         console.log(Prenom)
         console.log(Email)
         console.log(Password)
         console.log(Etablissement)
         console.log(Role)
+        axios.post("/users", {Nom, Prenom, Email, Password, Etablissement, Role})
     }
+
     return(
        <Form>
     <Form.Field>
@@ -44,7 +51,7 @@ export default  function Ajouter (){
       <label>Rôle</label>
       <input onChange={(e) => setRole(e.target.value)} value={Role} type="number" placeholder="0" />
     </Form.Field>
-    <Button onClick={consoleData} type="submit">Submit</Button>
+    <Button onClick={postData} type="submit">Submit</Button>
   </Form> 
     )
   
