@@ -1,7 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 
-const path = require('node:path');
-
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
@@ -13,7 +11,7 @@ const createWindow = () => {
         }
     });
 
-    win.loadFile('index.html');
+    win.loadFile('./views/login.html');
 };
 
 app.whenReady().then(() => {
@@ -32,23 +30,3 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
 });
-
-// ipcMain.on('login', (event, credentials) => {
-//     axios.post('', credentials)
-//         .then((response) => {
-//             mainWindow.webContents.session.cookies.set({
-//                 url: '',
-//                 name: 'authToken',
-//                 value: response.data.token,
-//                 httpOnly: true,
-//             }, (error) => {
-//                 if (error) console.error('Erreur lors du stockage du cookie:', error);
-//             });
-
-//             mainWindow.webContents.send('login-successful');
-//         })
-//         .catch((error) => {
-//             console.error('Erreur lors de l\'authentification:', error);
-//             mainWindow.webContents.send('login-failed');
-//         });
-// })

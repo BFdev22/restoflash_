@@ -1,20 +1,40 @@
 const axios = require('axios');
+const dotenv = require('dotenv');
+const { response } = require('express');
 
-const loginForm = document.getElementById('submitLogin');
+dotenv.config();
+const host = process.env.HOST;
 
-loginForm.addEventListener("submit", async (event) => {
+const login = document.getElementById('submitLogin');
+
+login.addEventListener("click", function (event) {
     event.preventDefault();
     const username = document.getElementById('inputEmail').value;
     const password = document.getElementById('inputPassword').value;
 
-    await axios.post('/login', {
-        email: username,
-        password: password
+    fetch(`${host}/connexion`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: username,
+            password: password
+        })
     })
-    .then(function (response) {
-        console.log(response);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('monToken', data.token)
+            localStorage.setItem('userid', data.userid)
+            localStorage.setItem('username', data.username)
+            window.location.assign('../views/home.html');
+        })
+        .catch(error => console.error('Erreur lors de la requête :', error));
+        // Stocker le token dans le localStorage
+        
+        
+        
+
+        // Supprimer le token du localStorage (par exemple, lors de la déconnexion)
+        // localStorage.removeItem('monToken');
 });

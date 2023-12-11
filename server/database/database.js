@@ -6,13 +6,20 @@ const connectDB = new Sequelize(
   /* "restoflash",
   "root",
   "", */
-  `${process.env.DB_NAME}`,
-  `${process.env.DB_USERNAME}`,
-  `${process.env.DB_PASSWORD}`,
+  'restoflash',
+  'root',
+  '',
   {
     host: "localhost",
     dialect: "mysql",
   }
 );
+
+try{
+  connectDB.authenticate();
+  console.log('Connecté à la base de données MySQL!');
+} catch(error){
+  console.error('Impossible de se connecter, erreur suivante :', error);
+}
 
 export default connectDB;

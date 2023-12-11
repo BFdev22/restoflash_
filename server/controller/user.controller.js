@@ -8,7 +8,7 @@ Etablissement.hasMany(User);
 User.belongsTo(Etablissement);
 Registre.belongsTo(User);
 
-async function getAllUser(req, res) {
+export async function getAllUser(req, res) {
   try {
     const users = await User.findAll({
       attributes: ["id", "nom", "prenom", "email", "password", "role"],
@@ -25,7 +25,7 @@ async function getAllUser(req, res) {
     console.log("getAllUser: ", error);
   }
 }
-async function getOneUser(req, res) {
+export async function getOneUser(req, res) {
   try {
     const user = await User.findOne({
       attributes: ["id", "nom", "prenom", "email", "password", "role"],
@@ -48,17 +48,16 @@ async function getOneUser(req, res) {
     console.log("getOneUser: ", error);
   }
 }
-async function createUser(req, res) {
+export async function createUser(req, res) {
   try {
     const saltRounds = 10;
-    /*  */
-    /* if (!req.query.name && !req.query.email && !req.query.password) {
-      return res
-        .status(400)
-        .json({ message: "Merci de renseigner l'ensemble des informations" });
-    } */
 
-    const addUser = User.create({
+    // if (!req.query.name && !req.query.email && !req.query.password) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Merci de renseigner l'ensemble des informations" });
+    // }
+    const addUser = await User.create({
       nom: req.body.nom,
       prenom: req.body.prenom,
       email: req.body.email,
@@ -66,13 +65,14 @@ async function createUser(req, res) {
       role: req.body.role,
       etablissementId: req.body.etablissementId,
     });
+    console.log(addUser);
 
     return res.status(200).json({ message: "Utilisateur ajouté avec succès" });
   } catch (error) {
     console.log("createUser: ", error);
   }
 }
-async function editUser(req, res) {
+export async function editUser(req, res) {
   try {
     const saltRounds = 10;
     /*  */
@@ -99,7 +99,7 @@ async function editUser(req, res) {
     console.log("editUser: ", error);
   }
 }
-async function deleteUser(req, res) {
+export async function deleteUser(req, res) {
   try {
     const deleteUser = await User.destroy({ where: { id: req.params.userId } });
 
@@ -115,4 +115,4 @@ async function deleteUser(req, res) {
   }
 }
 
-export { getAllUser, getOneUser, createUser, editUser, deleteUser };
+export default { getAllUser, getOneUser, createUser, editUser, deleteUser };

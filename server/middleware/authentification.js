@@ -7,41 +7,53 @@ dotenv.config();
 /*  */
 const SECRET_KEY = process.env.ACCESS_TOKEN_SECRET;
 
+async function hashPassword(password) {
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    return hashedPassword;
+  } catch (error) {
+    console.error('Erreur lors du hachage du mot de passe :', error);
+  }
+}
+
 async function authentification(req, res) {
-  const { email, password } = req.query;
+  const email = req.body.email;
+  const password = req.body.password;
 
   try {
-    const user = await UserModel.findOne({ email: email });
-
+    const user = await UserModel.findOne({ where: { email } });
     if (user) {
-      bcrypt.compare(password, user.password, function (err, response) {
-        if (err) {
-          throw new Error(err);
-        }
-        if (response) {
-          //delete user._doc.password;
+      const hashPass = await hashPassword(password);
+      
+      const response = await bcrypt.compare(password, user.password);
+      if (response) {
+        //delete user._doc.password;
 
-          const token = jwt.sign(
-            {
-              user: user,
-            },
-            SECRET_KEY,
-            {
-              expiresIn: process.env.JWT_EXPIRE,
-            }
-          );
+        const token = jwt.sign(
+          {
+            user: user,
+          },
+          SECRET_KEY,
+          {
+            expiresIn: process.env.JWT_EXPIRE,
+          }
+        );
 
-          res.header("Authorization", "Bearer " + token);
+        res.header("Authorization", "Bearer " + token);
 
-          return res
-            .status(200)
-            .json({ token: token, message: "Vous êtes bien connecté" });
-        }
-
+        return res
+          .status(200)
+          .json({ 
+            token: token, 
+            message: "Vous êtes bien connecté",
+            userid: user.id, 
+            username: user.nom + " " + user.prenom
+          });
+      } else {
         return res
           .status(403)
           .json({ message: "Email ou mot de passe incorrect" });
-      });
+      }
     } else {
       return res
         .status(404)
@@ -54,6 +66,7 @@ async function authentification(req, res) {
       .json({ message: "Une erreur est survenue lors de l'authentification" });
   }
 }
+
 
 async function verifyToken(req, res, next) {
   if (!req.headers.authorization) {
