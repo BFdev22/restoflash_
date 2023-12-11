@@ -17,14 +17,15 @@ export default  function Ajouter (){
     // }
 
     const postData = () =>{
-        console.log(Nom)
-        console.log(Prenom)
-        console.log(Email)
-        console.log(Password)
-        console.log(Etablissement)
-        console.log(Role)
+        // console.log(Nom)
+        // console.log(Prenom)
+        // console.log(Email)
+        // console.log(Password)
+        // console.log(Etablissement)
+        // console.log(Role)
+        
         axios.post("/users", {Nom, Prenom, Email, Password, Etablissement, Role})
-        console.log(urlAPI)
+        console.log(axios.post("/users", {Nom, Prenom, Email, Password, Etablissement, Role}))
     }
 
     return(
