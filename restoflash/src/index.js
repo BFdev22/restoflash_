@@ -1,29 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {
-  BrowserRouter ,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "semantic-ui-css/semantic.min.css";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./Login";
+import Ajouter from "./Ajouter";
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-   <React.StrictMode>
     <BrowserRouter>
-      <Routes >
-        <Route index element={<Navigate to="/Login" replace />} />  
+      <Routes>
+        <Route index element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<App />} />
+        <Route path="/ajouter" element={<Ajouter />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
   </React.StrictMode>
 );
 

@@ -1,6 +1,6 @@
 import './App.css';
 
-function App() {
+
   
 
 function App() {
@@ -170,6 +170,6 @@ function App() {
     </section>
   );
 }
-}
+
 
 export default App;
