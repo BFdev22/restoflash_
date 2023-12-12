@@ -10,7 +10,7 @@ function App() {
         {/* DEBUT SIDEBAR */}
         <div id="side-bar">
           <div id="logo-dashboard">
-            <img src="logo-departement.png" />
+            <img src="LOGO-departement.png" />
           </div>
           <div id="menu-side">
             <ul id="navlink">
