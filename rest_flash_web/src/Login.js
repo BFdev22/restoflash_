@@ -1,27 +1,29 @@
 import { useEffect, useState } from "react";
 import "./Login.css";
 import urlAPI from "./axios.config";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const navigate = useNavigate();
 
-
-  const handleSubmit = async (e)=>{
-    
-    
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
+  //console.log("errorMessage: ", errorMessage);
+  const handleSubmit = async (e) => {
     try {
-      e.preventDefault()
-      const response = await urlAPI.post("/connexion", {email, password});
-      console.log(response)
-      
+      e.preventDefault();
+      const response = await urlAPI.post("/connexion", { email, password });
+
+      localStorage.setItem("Token", response.data.token);
+      localStorage.setItem("UserId", response.data.userid);
+      localStorage.setItem("Username", response.data.username);
+      navigate("/dashboard");
     } catch (error) {
-      console.log(error)
+      setErrorMessage(error.response.data.message);
     }
-  }
-  useEffect(()=>{
-    //handleSubmit();
-  },[])
+  };
+
   return (
     <div className="Login">
       <div id="div-img">
@@ -32,17 +34,22 @@ function Login() {
           <h1>Connexion</h1>
         </div>
         <div id="login-input">
-          <input type="text"
-           onChange={(e) => setEmail(e.target.value)} 
-           value={email} 
-           required
-           placeholder="Email" />
-          <input type="password"
-           onChange={(e) => setPassword(e.target.value)} 
-           value={password} 
-           required
-          placeholder="Mot de Passe" />
+          <input
+            type="text"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            required
+            placeholder="Mot de Passe"
+          />
         </div>
+        <div style={{ color: "red" }}>{errorMessage ? errorMessage : null}</div>
         <div id="login-submit">
           <input type="submit" value="Envoyer" />
         </div>
