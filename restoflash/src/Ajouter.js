@@ -9,163 +9,177 @@ export default function Ajouter() {
   const [prenom, setPrenom] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [etablissement, setEtablissment] = useState("");
+  const [etablissements, setEtablissment] = useState([]);
+  const [etablissementId, setEtablissmentId] = useState([]);
   const [role, setRole] = useState("");
-  // const postData = () => {
-  //   console.log(Nom);
-  //   console.log(Prenom);
-  //   console.log(Email);
-  //   console.log(Password);
-  //   console.log(Etablissement);
-  //   console.log(Role);
-  // };
+  
+  const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("Token")}` },
+  };
+  const lsEtablissement = async () => {
+    try {
+      //const response = await urlAPI.get("/etablissements/:etablissementId", config);
+      const response = await urlAPI.get("/etablissements", config);
+      console.log("etab list:", response.data)
+      setEtablissment(response.data);
+    } catch (error) {
+      console.log("get registres error: ", error);
+    }
+  };
   const handleSubmit = async (e) => {
-    
     if (e) {
       e.preventDefault(); // Vérifie si l'événement existe avant d'appeler preventDefault
     }
     try {
-      if (!nom || !prenom || !email || !password || !etablissement || !role) {
+      console.log("ici", etablissementId)
+      if (!nom || !prenom || !email || !password || !etablissementId || !role) {
         // Vérifie si tous les champs sont remplis
-        console.log('Veuillez remplir tous les champs.');
+        console.log("Veuillez remplir tous les champs.");
         return;
       }
-      //e.preventDefault();
+      //e.preventDefault(); Il est ou le terminal du server please ?
+      
       const response = await urlAPI.post("/users", {
         nom,
         prenom,
         email,
         password,
-        etablissement,
+        etablissementId,
         role,
       });
-      console.log(response);
+      console.log("response users: ", response);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    handleSubmit();
+    //handleSubmit();
+    lsEtablissement();
   }, []);
 
   return (
-
     <section id="fixed-bars">
-    <div id="menu">
-      {/* DEBUT SIDEBAR */}
-      <div id="side-bar">
-        <div id="logo-dashboard">
-          <img src="LOGO-departement.png" />
-        </div>
-        <div id="menu-side">
-          <ul id="navlink">
-            <li>
-              <span class="material-symbols-outlined">grid_view</span>
-              <p>
-                <a href="/dashboard">Dashboard</a>
-              </p>
-            </li>
-            <li>
-              <span class="material-symbols-outlined">add</span>
-              <p>
-                <a href="ajouter">Ajouter</a>
-              </p>
-            </li>
-            <li>
-              <span class="material-symbols-outlined">cycle</span>
-              <p>
-                <a href="modifier">Modifier</a>
-              </p>
-            </li>
-            <li>
-              <span class="material-symbols-outlined">remove</span>
-              <p>
-                <a href="supprimer">Supprimer</a>
-              </p>
-            </li>
-          </ul>
-        </div>
-        <div id="logout">
-          <div id="btn-logout">
-            <span class="material-symbols-outlined">logout</span>
-            <h4>Déconnexion </h4>
+      <div id="menu">
+        {/* DEBUT SIDEBAR */}
+        <div id="side-bar">
+          <div id="logo-dashboard">
+            <img src="LOGO-departement.png" />
+          </div>
+          <div id="menu-side">
+            <ul id="navlink">
+              <li>
+                <span class="material-symbols-outlined">grid_view</span>
+                <p>
+                  <a href="/dashboard">Dashboard</a>
+                </p>
+              </li>
+              <li>
+                <span class="material-symbols-outlined">add</span>
+                <p>
+                  <a href="ajouter">Ajouter</a>
+                </p>
+              </li>
+              <li>
+                <span class="material-symbols-outlined">cycle</span>
+                <p>
+                  <a href="modifier">Modifier</a>
+                </p>
+              </li>
+              <li>
+                <span class="material-symbols-outlined">remove</span>
+                <p>
+                  <a href="supprimer">Supprimer</a>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div id="logout">
+            <div id="btn-logout">
+              <span class="material-symbols-outlined">logout</span>
+              <h4>Déconnexion </h4>
+            </div>
           </div>
         </div>
+        {/* FIN SIDEBAR */}
       </div>
-      {/* FIN SIDEBAR */}
-    </div>
-    <section id="right-content">
-      <div id="log-info">
-        <span class="material-symbols-outlined">person</span>
-        <div id="name-email">
-          <p id="username">Username</p>
-          <p id="email">adresse@gmail.com</p>
+      <section id="right-content">
+        <div id="log-info">
+          <span class="material-symbols-outlined">person</span>
+          <div id="name-email">
+            <p id="username">Username</p>
+            <p id="email">adresse@gmail.com</p>
+          </div>
         </div>
-      </div>
 
-      <section id="content">
-        <Form className="create-form" onSubmit={(e) => handleSubmit(e)}>
-      <Form.Field>
-        <label>Nom</label>
-        <input
-          onChange={(e) => setNom(e.target.value)}
-          value={nom}
-          type="text"
-          placeholder="Nom"
-        />
-      </Form.Field>
-      <Form.Field>
-        <label>Prénom</label>
-        <input
-          onChange={(e) => setPrenom(e.target.value)}
-          value={prenom}
-          type="text"
-          placeholder="Prénom"
-        />
-      </Form.Field>
-      <Form.Field>
-        <label>Email</label>
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          type="email"
-          placeholder="exemple@gmail.com"
-        />
-      </Form.Field>
-      <Form.Field>
-        <label>Mot de passe</label>
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          type="password"
-          placeholder="Mot de passe"
-        />
-      </Form.Field>
-      <Form.Field>
-        <label>Etablissement</label>
-        <input
-          onChange={(e) => setEtablissment(e.target.value)}
-          value={etablissement}
-          type="number"
-          placeholder="Etablissement"
-        />
-      </Form.Field>
-      <Form.Field>
-        <label>Rôle</label>
-        <input
-          onChange={(e) => setRole(e.target.value)}
-          value={role}
-          type="number"
-          placeholder="0"
-        />
-      </Form.Field>
-      <Button type="submit">
-        Submit
-      </Button>
-    </Form>
+        <section id="content">
+          <Form className="create-form" onSubmit={(e) => handleSubmit(e)}>
+            <Form.Field>
+              <label>Nom</label>
+              <input
+                onChange={(e) => setNom(e.target.value)}
+                value={nom}
+                type="text"
+                placeholder="Nom"
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Prénom</label>
+              <input
+                onChange={(e) => setPrenom(e.target.value)}
+                value={prenom}
+                type="text"
+                placeholder="Prénom"
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Email</label>
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                type="email"
+                placeholder="exemple@gmail.com"
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Mot de passe</label>
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                type="password"
+                placeholder="Mot de passe"
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>
+                Etablissement
+                <select
+                  name="etablissement"
+                  onChange={(e) => setEtablissmentId(e.target.value)} 
+                  value={etablissementId}
+                >
+                  {etablissements.map((etablissement) => (
+                    <option key={etablissement.id} value={etablissement.id}>
+                      {etablissement.nomEtablissement}
+                    </option>
+                  ))}
+                  {/* Faut pas faire de map ici ou peut etre que si lol */}
+                  
+                </select>
+              </label>
+            </Form.Field>
+            <Form.Field>
+              <label>Rôle</label>
+              <input
+                onChange={(e) => setRole(e.target.value)}
+                value={role}
+                type="number"
+                placeholder="0"
+              />
+            </Form.Field>
+            <Button type="submit">Submit</Button>
+          </Form>
+        </section>
       </section>
     </section>
-  </section>
-    
   );
 }
