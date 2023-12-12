@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import urlAPI from "./axios.config";
 
 export default function Ajouter() {
-  const [Nom, setNom] = useState("");
-  const [Prenom, setPrenom] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
-  const [Etablissement, setEtablissment] = useState("");
-  const [Role, setRole] = useState("");
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [etablissement, setEtablissment] = useState("");
+  const [role, setRole] = useState("");
   // const postData = () => {
   //   console.log(Nom);
   //   console.log(Prenom);
@@ -25,19 +25,19 @@ export default function Ajouter() {
       e.preventDefault(); // Vérifie si l'événement existe avant d'appeler preventDefault
     }
     try {
-      if (!Nom || !Prenom || !Email || !Password || !Etablissement || !Role) {
+      if (!nom || !prenom || !email || !password || !etablissement || !role) {
         // Vérifie si tous les champs sont remplis
         console.log('Veuillez remplir tous les champs.');
         return;
       }
       //e.preventDefault();
       const response = await urlAPI.post("/users", {
-        Nom,
-        Prenom,
-        Email,
-        Password,
-        Etablissement,
-        Role,
+        nom,
+        prenom,
+        email,
+        password,
+        etablissement,
+        role,
       });
       console.log(response);
     } catch (error) {
@@ -109,7 +109,7 @@ export default function Ajouter() {
         <label>Nom</label>
         <input
           onChange={(e) => setNom(e.target.value)}
-          value={Nom}
+          value={nom}
           type="text"
           placeholder="Nom"
         />
@@ -118,7 +118,7 @@ export default function Ajouter() {
         <label>Prénom</label>
         <input
           onChange={(e) => setPrenom(e.target.value)}
-          value={Prenom}
+          value={prenom}
           type="text"
           placeholder="Prénom"
         />
@@ -127,7 +127,7 @@ export default function Ajouter() {
         <label>Email</label>
         <input
           onChange={(e) => setEmail(e.target.value)}
-          value={Email}
+          value={email}
           type="email"
           placeholder="exemple@gmail.com"
         />
@@ -136,7 +136,7 @@ export default function Ajouter() {
         <label>Mot de passe</label>
         <input
           onChange={(e) => setPassword(e.target.value)}
-          value={Password}
+          value={password}
           type="password"
           placeholder="Mot de passe"
         />
@@ -145,7 +145,7 @@ export default function Ajouter() {
         <label>Etablissement</label>
         <input
           onChange={(e) => setEtablissment(e.target.value)}
-          value={Etablissement}
+          value={etablissement}
           type="number"
           placeholder="Etablissement"
         />
@@ -154,7 +154,7 @@ export default function Ajouter() {
         <label>Rôle</label>
         <input
           onChange={(e) => setRole(e.target.value)}
-          value={Role}
+          value={role}
           type="number"
           placeholder="0"
         />
