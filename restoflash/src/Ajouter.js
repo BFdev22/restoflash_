@@ -20,6 +20,7 @@ export default function Ajouter() {
   //   console.log(Role);
   // };
   const handleSubmit = async (e) => {
+    
     if (e) {
       e.preventDefault(); // Vérifie si l'événement existe avant d'appeler preventDefault
     }
@@ -103,7 +104,7 @@ export default function Ajouter() {
       </div>
 
       <section id="content">
-        <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form className="create-form" onSubmit={(e) => handleSubmit(e)}>
       <Form.Field>
         <label>Nom</label>
         <input
