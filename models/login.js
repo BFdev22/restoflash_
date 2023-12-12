@@ -6,11 +6,16 @@ dotenv.config();
 const host = process.env.HOST;
 
 const login = document.getElementById('submitLogin');
+const errorZone = document.getElementById('errorZone');
 
 login.addEventListener("click", function (event) {
     event.preventDefault();
     const username = document.getElementById('inputEmail').value;
     const password = document.getElementById('inputPassword').value;
+
+    if(username == "" || password == ""){
+        errorZone.innerHTML = "Veuillez remplir tous les champs !"
+    }
 
     fetch(`${host}/connexion`, {
         method: 'POST',
@@ -22,14 +27,25 @@ login.addEventListener("click", function (event) {
             password: password
         })
     })
-        .then(response => response.json())
+        .then(response => {
+            if(username != "" && password != ""){
+                if(response.status == 404){
+                    errorZone.innerHTML = "Email ou mot de passe incorrecte !"
+                }else if(response.ok){
+                    errorZone.innerHTML = ""
+                    return response.json();
+                }
+            }
+        })
         .then(data => {
             localStorage.setItem('monToken', data.token)
             localStorage.setItem('userid', data.userid)
             localStorage.setItem('username', data.username)
             window.location.assign('./views/home.html');
         })
-        .catch(error => console.error('Erreur lors de la requête :', error));
+        .catch(error => {
+            console.error('Erreur lors de la requête :', error)
+        });
         // Stocker le token dans le localStorage
         
         
