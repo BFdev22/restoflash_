@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import urlAPI from "./axios.config";
 
 function UserList() {
+  const navigate = useNavigate([]);
+
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
 
@@ -17,7 +19,6 @@ function UserList() {
     localStorage.removeItem("Username");
     navigate("/Login");
   };
-
 
   useEffect(() => {
     urlAPI
@@ -56,6 +57,24 @@ function UserList() {
                 <span class="material-symbols-outlined">add</span>
                 <p>
                   <a href="/ajouter">Ajouter</a>
+                </p>
+              </li>
+              <li>
+              <span class="material-symbols-outlined">person</span>
+                <p>
+                  <a href="/cuisiniers">Voir Cuisiniers</a>
+                </p>
+              </li>
+              <li>
+                <span class="material-symbols-outlined">update</span>
+                <p>
+                  <a href="/modifier">Modifier</a>
+                </p>
+              </li>
+              <li>
+                <span class="material-symbols-outlined">delete</span>
+                <p>
+                  <a href="/supprimer">Supprimer</a>
                 </p>
               </li>
             </ul>

@@ -1,0 +1,9 @@
+#right-content ul li{
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    border: solid 1px;
+}
+#right-content ul li:nth-child(2n+1){
+    background-color: rgb(196, 253, 196);
+}

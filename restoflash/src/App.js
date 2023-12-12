@@ -56,6 +56,24 @@ function App() {
                   <a href="/ajouter">Ajouter</a>
                 </p>
               </li>
+              <li>
+              <span class="material-symbols-outlined">person</span>
+                <p>
+                  <a href="/cuisiniers">Voir Cuisiniers</a>
+                </p>
+              </li>
+              <li>
+              <span class="material-symbols-outlined">update</span>
+                <p>
+                  <a href="/modifier">Modifier</a>
+                </p>
+              </li>
+              <li>
+                <span class="material-symbols-outlined">delete</span>
+                <p>
+                  <a href="/supprimer">Supprimer</a>
+                </p>
+              </li>
             </ul>
           </div>
           <div id="logout">

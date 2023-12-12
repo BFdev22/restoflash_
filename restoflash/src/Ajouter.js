@@ -3,6 +3,7 @@ import { Button, Form } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 // import axios from "axios";
 import urlAPI from "./axios.config";
+import { useNavigate } from "react-router-dom";
 
 export default function Ajouter() {
   const [nom, setNom] = useState("");
@@ -12,7 +13,14 @@ export default function Ajouter() {
   const [etablissements, setEtablissment] = useState([]);
   const [etablissementId, setEtablissmentId] = useState([]);
   const [role, setRole] = useState("");
-  
+  const navigate = useNavigate([]);
+
+  const logout = () => {
+    localStorage.removeItem("Token");
+    localStorage.removeItem("UserId");
+    localStorage.removeItem("Username");
+    navigate("/Login");
+  };
   const config = {
     headers: { Authorization: `Bearer ${localStorage.getItem("Token")}` },
   };
@@ -67,7 +75,7 @@ export default function Ajouter() {
           </div>
           <div id="menu-side">
             <ul id="navlink">
-              <li>
+            <li>
                 <span class="material-symbols-outlined">grid_view</span>
                 <p>
                   <a href="/dashboard">Dashboard</a>
@@ -76,27 +84,47 @@ export default function Ajouter() {
               <li>
                 <span class="material-symbols-outlined">add</span>
                 <p>
-                  <a href="ajouter">Ajouter</a>
+                  <a href="/ajouter">Ajouter</a>
                 </p>
               </li>
               <li>
-                <span class="material-symbols-outlined">cycle</span>
+              <span class="material-symbols-outlined">person</span>
                 <p>
-                  <a href="modifier">Modifier</a>
+                  <a href="/cuisiniers">Voir Cuisiniers</a>
                 </p>
               </li>
               <li>
-                <span class="material-symbols-outlined">remove</span>
+              <span class="material-symbols-outlined">update</span>
                 <p>
-                  <a href="supprimer">Supprimer</a>
+                  <a href="/modifier">Modifier</a>
+                </p>
+              </li>
+              <li>
+                <span class="material-symbols-outlined">delete</span>
+                <p>
+                  <a href="/supprimer">Supprimer</a>
                 </p>
               </li>
             </ul>
           </div>
           <div id="logout">
             <div id="btn-logout">
-              <span class="material-symbols-outlined">logout</span>
-              <h4>Déconnexion </h4>
+            <span class="material-symbols-outlined">logout</span>
+            <button
+                style={{
+                  backgroundColor: "transparent",
+                  backgroundRepeat: "no-repeat",
+                  border: "none",
+                  cursor: "pointer",
+                  overflow: "hidden",
+                  outline: "none",
+                  fontWeight: "bold",
+                  fontSize: 14,
+                }}
+                onClick={() => logout()}
+              >
+                Déconnexion{" "}
+              </button>
             </div>
           </div>
         </div>
