@@ -6,13 +6,23 @@ import { useState, useEffect } from "react";
 import urlAPI from "./axios.config";
 
 export default function Create() {
-    const updateAPIData = () => {
-        axios.put(``, {
-            firstName,
-             lastName,
-             checkbox
-        })
-    }
+  const [Id, setId] = useState(null);
+  const [Nom, setNom] = useState("");
+  const [Prenom, setPrenom] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Etablissement, setEtablissment] = useState("");
+  const [Role, setRole] = useState("");
+  const updateAPIData = () => {
+    urlAPI.put(`users/${Id}`, {
+      Nom,
+      Prenom,
+      Email,
+      Password,
+      Etablissement,
+      Role,
+    });
+  };
 
   return (
     <section id="fixed-bars">
@@ -69,7 +79,7 @@ export default function Create() {
         </div>
 
         <section id="content">
-          <Form onSubmit={(e) => handleSubmit(e)}>
+          <Form onSubmit={() => updateAPIData()}>
             <Form.Field>
               <label>Nom</label>
               <input
