@@ -20,7 +20,8 @@ function Login() {
       localStorage.setItem("Username", response.data.username);
       navigate("/dashboard");
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      console.log(error)
+      // setErrorMessage(error.response.data.message);
     }
   };
 
