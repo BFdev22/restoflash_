@@ -12,7 +12,7 @@ function App() {
     headers: { Authorization: `Bearer ${localStorage.getItem("Token")}` },
   };
 
-  const [registres, setRegistres] = useState();
+  const [registres, setRegistres] = useState([]);
 
   const logout = () => {
     localStorage.removeItem("Token");
